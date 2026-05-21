@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -111,17 +111,17 @@
                         <span class="channel-title">NRT 4</span>
                     </div>
 
-                    <div class="channel-item" data-cat="sports" onclick="startStream('https://stream.supertv.gg:3001/supertv/sport/stv1/ch1/adaptive.m3u8')">
+                    <div class="channel-item" data-cat="sports" onclick="openExternal('https://stream.supertv.gg:3001/supertv/sport/stv1/ch1/adaptive.m3u8')">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/4/43/BeIN_Sports_logo.svg" class="channel-img" alt="beIN 1">
                         <span class="channel-title">beIN 1</span>
                     </div>
                     
-                    <div class="channel-item" data-cat="sports" onclick="startStream('http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/PQRQCB2NKUWPMCFCEQXDT4Z3/6123/index.m3u8')">
+                    <div class="channel-item" data-cat="sports" onclick="openExternal('http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/PQRQCB2NKUWPMCFCEQXDT4Z3/6123/index.m3u8')">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/4/43/BeIN_Sports_logo.svg" class="channel-img" alt="beIN 2">
                         <span class="channel-title">beIN 2</span>
                     </div>
                     
-                    <div class="channel-item" data-cat="sports" onclick="startStream('https://stream.supertv.gg:3001/supertv/sport/stv1/ch1/ch1_720.m3u8')">
+                    <div class="channel-item" data-cat="sports" onclick="openExternal('https://stream.supertv.gg:3001/supertv/sport/stv1/ch1/ch1_720.m3u8')">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/4/43/BeIN_Sports_logo.svg" class="channel-img" alt="beIN HD">
                         <span class="channel-title">beIN HD</span>
                     </div>
@@ -217,6 +217,11 @@
                     item.style.display = 'none';
                 }
             });
+        }
+
+        // فەنکشنی نوێ بۆ کردنەوەی لینکی دەرەکی (بۆ beIN Sports)
+        function openExternal(url) {
+            window.open(url, '_blank');
         }
 
         function startStream(streamUrl) {
