@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -43,26 +43,16 @@
         .channel-item { background: var(--card-bg); border-radius: 16px; padding: 15px 10px; text-align: center; cursor: pointer; border: 1px solid var(--border-color); transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(10px); gap: 10px; }
         .channel-item:hover { transform: translateY(-5px); border-color: var(--secondary); background: rgba(30, 41, 65, 0.8); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); }
         
-        .channel-img { width: 55px; height: 55px; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); transition: 0.3s; border-radius: 10px; }
+        .channel-img { width: 55px; height: 55px; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); transition: 0.3s; border-radius: 10px; background: #fff; padding: 2px; }
         .channel-item:hover .channel-img { transform: scale(1.1); }
         .channel-title { font-weight: 700; font-size: 13px; color: #e2e8f0; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-        /* ستاڵی WebViewـی نوێ بۆ ئایفۆن و مۆبایلەکان */
-        #webview-container {
-            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: var(--bg-dark); z-index: 99999; flex-direction: column;
-        }
-        .webview-header {
-            background: #0b0f19; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary);
-            padding-top: env(safe-area-inset-top, 40px); /* بۆ نۆچی شاشەکە */
-        }
+        #webview-container { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-dark); z-index: 99999; flex-direction: column; }
+        .webview-header { background: #0b0f19; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-top: env(safe-area-inset-top, 40px); }
         .webview-header h3 { color: var(--text-light); margin: 0; font-size: 16px; font-weight: bold; }
-        .close-btn {
-            background: #ef4444; color: white; border: none; padding: 8px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s;
-        }
+        .close-btn { background: #ef4444; color: white; border: none; padding: 8px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; }
         .close-btn:hover { background: #dc2626; }
         #webview-frame { flex: 1; width: 100%; border: none; background: #000; }
-
     </style>
 </head>
 <body>
@@ -89,108 +79,130 @@
             <div class="content-area">
                 <div class="tabs-container">
                     <div class="tab-item active" onclick="filterCategory('all', this)">هەموو</div>
-                    <div class="tab-item" onclick="filterCategory('movie', this)">فیلمەکان</div>
-                    <div class="tab-item" onclick="filterCategory('sports', this)">وەرزش</div>
                     <div class="tab-item" onclick="filterCategory('news', this)">هەواڵ</div>
-                    <div class="tab-item" onclick="filterCategory('culture', this)">کلتور</div>
+                    <div class="tab-item" onclick="filterCategory('sports', this)">وەرزش</div>
+                    <div class="tab-item" onclick="filterCategory('movie', this)">فیلمەکان</div>
+                    <div class="tab-item" onclick="filterCategory('kids', this)">منداڵان و پەروەردە</div>
+                    <div class="tab-item" onclick="filterCategory('culture', this)">گشتی</div>
                 </div>
 
                 <div class="grid-channels" id="channels-list">
                     
+                    <div class="channel-item" data-cat="news" onclick="openWebView('https://d1x82nydcxndze.cloudfront.net/live/index_720p25.m3u8')">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.kurdistan24.net&size=128" class="channel-img" alt="K24">
+                        <span class="channel-title">Kurdistan 24</span>
+                    </div>
+
                     <div class="channel-item" data-cat="news" onclick="startStream('https://live.rudaw.net/hls/rudaw-tv/master.m3u8')">
-                        <img src="https://logo.clearbit.com/rudaw.net" onerror="this.src='https://ui-avatars.com/api/?name=Rudaw&background=0b0f19&color=00f2fe&rounded=true'" class="channel-img" alt="Rudaw">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.rudaw.net&size=128" class="channel-img" alt="Rudaw">
                         <span class="channel-title">Rudaw TV</span>
                     </div>
 
-                    <div class="channel-item" data-cat="news" onclick="openWebView('https://d1x82nydcxndze.cloudfront.net/live/index.m3u8')">
-                        <img src="https://logo.clearbit.com/kurdistan24.net" onerror="this.src='https://ui-avatars.com/api/?name=K24&background=0b0f19&color=00f2fe&rounded=true'" class="channel-img" alt="K24">
-                        <span class="channel-title">Kurdistan 24</span>
+                    <div class="channel-item" data-cat="news" onclick="startStream('https://media2.streambrothers.com:1936/8218/8218/playlist.m3u8')">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.payam.tv&size=128" class="channel-img" alt="Payam">
+                        <span class="channel-title">Payam TV</span>
+                    </div>
+
+                    <div class="channel-item" data-cat="news" onclick="startStream('https://live.kirkuklive.live/hls/stream/index.m3u8')">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://kirkuktv.net&size=128" class="channel-img" alt="Kirkuk">
+                        <span class="channel-title">Kirkuk TV</span>
+                    </div>
+
+                    <div class="channel-item" data-cat="news" onclick="startStream('https://live.host247.net/gk/gksat/playlist.m3u8')">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.gksat.tv&size=128" class="channel-img" alt="Gali Kurdistan">
+                        <span class="channel-title">Gali Kurdistan</span>
                     </div>
                     
-                    <div class="channel-item" data-cat="news" onclick="startStream('https://live.channel8.com/Channel8-Kurdish/tracks-v4a1/mono.m3u8')">
-                        <img src="https://logo.clearbit.com/channel8.com" onerror="this.src='https://ui-avatars.com/api/?name=C8&background=0b0f19&color=00f2fe&rounded=true'" class="channel-img" alt="Channel 8">
-                        <span class="channel-title">Channel 8</span>
-                    </div>
-
-                    <div class="channel-item" data-cat="news" onclick="startStream('https://hlspackager.akamaized.net/live/DB/KURDSAT_NEWS/HLS/KURDSAT_NEWS.m3u8')">
-                        <img src="https://logo.clearbit.com/kurdsat.tv" onerror="this.src='https://ui-avatars.com/api/?name=Kurdsat&background=0b0f19&color=00f2fe&rounded=true'" class="channel-img" alt="Kurdsat News">
-                        <span class="channel-title">Kurdsat News</span>
-                    </div>
-
-                    <div class="channel-item" data-cat="news" onclick="startStream('https://hlspackager.akamaized.net/live/DB/NRT_HD/HLS/NRT_HD-avc1_2500000=10002,mp4a_128000=20000.m3u8')">
-                        <img src="https://logo.clearbit.com/nrttv.com" onerror="this.src='https://ui-avatars.com/api/?name=NRT&background=0b0f19&color=00f2fe&rounded=true'" class="channel-img" alt="NRT">
-                        <span class="channel-title">NRT HD</span>
-                    </div>
-
-                    <div class="channel-item" data-cat="news" onclick="startStream('https://live20.bozztv.com/giatv/giatv-nrt4stream/nrt4stream/chunks.m3u8')">
-                        <img src="https://ui-avatars.com/api/?name=NRT+4&background=0b0f19&color=00f2fe&rounded=true&bold=true" class="channel-img" alt="NRT 4">
-                        <span class="channel-title">NRT 4</span>
+                    <div class="channel-item" data-cat="news" onclick="startStream('https://stream.badinan.xyz/welat/tv/chunklist_w1721419603.m3u8')">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://welat.tv&size=128" class="channel-img" alt="Welat">
+                        <span class="channel-title">Welat TV</span>
                     </div>
 
                     <div class="channel-item" data-cat="sports" onclick="openWebView('https://stream.supertv.gg:3001/supertv/sport/stv1/ch1/adaptive.m3u8')">
-                        <img src="https://logo.clearbit.com/beinsports.com" onerror="this.src='https://ui-avatars.com/api/?name=beIN&background=0b0f19&color=00f2fe&rounded=true'" class="channel-img" alt="beIN 1">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.beinsports.com&size=128" class="channel-img" alt="beIN 1">
                         <span class="channel-title">beIN 1</span>
                     </div>
                     
                     <div class="channel-item" data-cat="sports" onclick="openWebView('http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/PQRQCB2NKUWPMCFCEQXDT4Z3/6123/index.m3u8')">
-                        <img src="https://logo.clearbit.com/beinsports.com" onerror="this.src='https://ui-avatars.com/api/?name=beIN&background=0b0f19&color=00f2fe&rounded=true'" class="channel-img" alt="beIN 2">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.beinsports.com&size=128" class="channel-img" alt="beIN 2">
                         <span class="channel-title">beIN 2</span>
                     </div>
-                    
-                    <div class="channel-item" data-cat="sports" onclick="openWebView('https://stream.supertv.gg:3001/supertv/sport/stv1/ch1/ch1_720.m3u8')">
-                        <img src="https://logo.clearbit.com/beinsports.com" onerror="this.src='https://ui-avatars.com/api/?name=beIN&background=0b0f19&color=00f2fe&rounded=true'" class="channel-img" alt="beIN HD">
-                        <span class="channel-title">beIN HD</span>
-                    </div>
 
-                    <div class="channel-item" data-cat="sports" onclick="startStream('https://amg17560-fcb-amg17560c1-rakuten-uk-4891.playouts.now.amagi.tv/playlist/amg17560-fcbarcelona-topbarcaenglish-rakutenuk/playlist.m3u8')">
-                        <img src="https://logo.clearbit.com/fcbarcelona.com" onerror="this.src='https://ui-avatars.com/api/?name=Barca&background=0b0f19&color=00f2fe&rounded=true'" class="channel-img" alt="Barca TV">
-                        <span class="channel-title">Barca TV</span>
-                    </div>
-                    
-                    <div class="channel-item" data-cat="sports" onclick="startStream('https://rmtv.akamaized.net/hls/live/2043153/rmtv-es-web/master.m3u8')">
-                        <img src="https://logo.clearbit.com/realmadrid.com" onerror="this.src='https://ui-avatars.com/api/?name=R+Madrid&background=0b0f19&color=00f2fe&rounded=true'" class="channel-img" alt="R Madrid">
-                        <span class="channel-title">Real Madrid</span>
-                    </div>
-
-                    <div class="channel-item" data-cat="sports" onclick="startStream('https://linear-893.frequency.stream/dist/xumo/893/hls/master/playlist.m3u8')">
-                        <img src="https://logo.clearbit.com/ufc.com" onerror="this.src='https://ui-avatars.com/api/?name=UFC&background=0b0f19&color=00f2fe&rounded=true'" class="channel-img" alt="UFC">
-                        <span class="channel-title">UFC</span>
-                    </div>
-
-                    <div class="channel-item" data-cat="movie" onclick="startStream('https://ava2.store/upload/ava.m3u8')">
-                        <img src="https://logo.clearbit.com/avatv.net" onerror="this.src='https://ui-avatars.com/api/?name=AVA&background=0b0f19&color=00f2fe&rounded=true'" class="channel-img" alt="AVA TV">
-                        <span class="channel-title">AVA TV</span>
-                    </div>
-                    
-                    <div class="channel-item" data-cat="movie" onclick="startStream('https://ca-rt.onetv.app/NRT2/index-0.m3u8?token=onetv202')">
-                        <img src="https://ui-avatars.com/api/?name=NRT+2&background=0b0f19&color=00f2fe&rounded=true&bold=true" class="channel-img" alt="NRT 2">
-                        <span class="channel-title">NRT 2</span>
-                    </div>
-
-                    <div class="channel-item" data-cat="movie" onclick="startStream('http://4kuhls.persiana.live/hls/stream.m3u8')">
+                    <div class="channel-item" data-cat="movie" onclick="openWebView('http://4kuhls.persiana.live/hls/stream.m3u8')">
                         <img src="https://ui-avatars.com/api/?name=4Kurd&background=0b0f19&color=00f2fe&rounded=true&bold=true" class="channel-img" alt="4Kurd">
                         <span class="channel-title">4Kurd TV</span>
                     </div>
 
-                    <div class="channel-item" data-cat="movie" onclick="startStream('http://krdtvappfree.ddns.net/bnarmoviesKRDTV/index.m3u8')">
+                    <div class="channel-item" data-cat="movie" onclick="openWebView('http://avrstream.com:1935/live/Mix-kurdy/playlist.m3u8')">
+                        <img src="https://ui-avatars.com/api/?name=Mix&background=0b0f19&color=f39c12&rounded=true&bold=true" class="channel-img" alt="Mix Kurdish">
+                        <span class="channel-title">Mix Kurdish</span>
+                    </div>
+
+                    <div class="channel-item" data-cat="movie" onclick="openWebView('http://krdtvappfree.ddns.net/bnarmoviesKRDTV/index.m3u8')">
                         <img src="https://ui-avatars.com/api/?name=Action&background=0b0f19&color=e74c3c&rounded=true&bold=true" class="channel-img" alt="Bnar Action">
                         <span class="channel-title">Bnar Action</span>
                     </div>
 
-                    <div class="channel-item" data-cat="all" onclick="startStream('https://live.kwikmotion.com/waarmedialive/waarmedia.smil/waarmediapublish/waarmedia_source/chunks.m3u8')">
-                        <img src="https://logo.clearbit.com/waartv.com" onerror="this.src='https://ui-avatars.com/api/?name=Waar&background=0b0f19&color=00f2fe&rounded=true'" class="channel-img" alt="Waar TV">
+                    <div class="channel-item" data-cat="movie" onclick="openWebView('http://krdtvappfree.ddns.net/servertvnnew2025KRDTV/index.m3u8')">
+                        <img src="https://ui-avatars.com/api/?name=Movies&background=0b0f19&color=8e44ad&rounded=true&bold=true" class="channel-img" alt="Bnar Movies">
+                        <span class="channel-title">Bnar Movies</span>
+                    </div>
+
+                    <div class="channel-item" data-cat="movie" onclick="openWebView('http://krdtvappfree.ddns.net/bnar4kKRDTV/index.m3u8')">
+                        <img src="https://ui-avatars.com/api/?name=Family&background=0b0f19&color=2ecc71&rounded=true&bold=true" class="channel-img" alt="Bnar Family">
+                        <span class="channel-title">Bnar Family</span>
+                    </div>
+
+                    <div class="channel-item" data-cat="movie" onclick="startStream('https://amg00627-amg00627c40-rakuten-uk-5725.playouts.now.amagi.tv/playlist/amg00627-banijayfast-mrbeanpopupcc-rakutenuk/playlist.m3u8')">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.mrbean.com&size=128" class="channel-img" alt="Mr Bean">
+                        <span class="channel-title">Mr Bean</span>
+                    </div>
+
+                    <div class="channel-item" data-cat="kids" onclick="startStream('https://parwarda.unitedmixmedia.tv/Parwardayi_Hawler/tracks-v2a1/mono.m3u8')">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://parwarda.unitedmixmedia.tv&size=128" class="channel-img" alt="Hawler">
+                        <span class="channel-title">P. Hawler</span>
+                    </div>
+
+                    <div class="channel-item" data-cat="kids" onclick="startStream('https://parwarda.unitedmixmedia.tv/Parwarda/tracks-v2a1/mono.m3u8')">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://parwarda.unitedmixmedia.tv&size=128" class="channel-img" alt="Slimani">
+                        <span class="channel-title">P. Slimani</span>
+                    </div>
+
+                    <div class="channel-item" data-cat="kids" onclick="startStream('https://parwarda.unitedmixmedia.tv/Parwardayi_Duhok/tracks-v2a1/mono.m3u8')">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://parwarda.unitedmixmedia.tv&size=128" class="channel-img" alt="Duhok">
+                        <span class="channel-title">P. Duhok</span>
+                    </div>
+
+                    <div class="channel-item" data-cat="kids" onclick="startStream('https://65f16f0fdfc51.streamlock.net:443/afarinTV/livestream/playlist.m3u8')">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.afarintv.net&size=128" class="channel-img" alt="Afarin">
+                        <span class="channel-title">Afarin TV</span>
+                    </div>
+
+                    <div class="channel-item" data-cat="kids" onclick="startStream('https://5dcabf026b188.streamlock.net/afarinTV/livestream/playlist.m3u8')">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.afarintv.net&size=128" class="channel-img" alt="Baxchay Afarin">
+                        <span class="channel-title">B. Afarin</span>
+                    </div>
+
+                    <div class="channel-item" data-cat="culture" onclick="startStream('https://live.kwikmotion.com/waarmedialive/waarmedia.smil/playlist.m3u8')">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://waartv.com&size=128" class="channel-img" alt="Waar">
                         <span class="channel-title">Waar TV</span>
                     </div>
 
-                    <div class="channel-item" data-cat="all" onclick="startStream('https://hlspackager.akamaized.net/live/DB/KURDSAT_HD/HLS/KURDSAT_HD-avc1_2500000=10002,mp4a_128000=20000.m3u8')">
-                        <img src="https://logo.clearbit.com/kurdsat.tv" onerror="this.src='https://ui-avatars.com/api/?name=Kurdsat&background=0b0f19&color=00f2fe&rounded=true'" class="channel-img" alt="Kurdsat HD">
-                        <span class="channel-title">Kurdsat HD</span>
+                    <div class="channel-item" data-cat="culture" onclick="openWebView('http://bblserver.ddns.net:1935/stream/khakhd/playlist.m3u8')">
+                        <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://khaktv.net&size=128" class="channel-img" alt="Khak">
+                        <span class="channel-title">Khak TV</span>
                     </div>
 
-                    <div class="channel-item" data-cat="culture" onclick="startStream('http://baskhd.ddns.net:40/live/QURANHDTV/mono.m3u8')">
+                    <div class="channel-item" data-cat="culture" onclick="openWebView('http://avrstream.com:1935/live/ala-hd/playlist.m3u8')">
+                        <img src="https://ui-avatars.com/api/?name=Ala&background=0b0f19&color=3498db&rounded=true&bold=true" class="channel-img" alt="Ala TV">
+                        <span class="channel-title">Ala TV</span>
+                    </div>
+
+                    <div class="channel-item" data-cat="culture" onclick="openWebView('http://baskhd.ddns.net:40/live/QURANHDTV/mono.m3u8')">
                         <img src="https://ui-avatars.com/api/?name=Quran&background=0b0f19&color=27ae60&rounded=true&bold=true" class="channel-img" alt="Quran">
                         <span class="channel-title">Bnar Quran</span>
                     </div>
+
                 </div>
             </div>
 
@@ -214,18 +226,14 @@
             });
         }
 
-        // فەنکشنە نوێیەکە بۆ کردنەوەی کەنالەکان لەناو ماڵپەڕەکەی خۆت بەبێ ڕۆیشتنە دەرەوە
         function openWebView(url) {
-            // ڤیدیۆی سەرەکی دەوەستێنین ئەگەر ئیشی دەکرد
             const mainVideo = document.getElementById('my-video');
             if (mainVideo) { mainVideo.pause(); }
 
-            // کردنەوەی پەنجەرەی WebView
             document.getElementById('webview-frame').src = url;
             document.getElementById('webview-container').style.display = 'flex';
         }
 
-        // داخستنی WebView و گەڕانەوە بۆ ماڵپەڕەکەت
         function closeWebView() {
             document.getElementById('webview-frame').src = '';
             document.getElementById('webview-container').style.display = 'none';
