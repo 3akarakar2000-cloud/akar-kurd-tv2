@@ -2,121 +2,264 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Made By Akar | Premium TV</title>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ڕۆژی لەدایکبوونت پیرۆز بێت! ✨</title>
     <style>
-        :root { --primary: #00f2fe; --secondary: #4facfe; --bg-dark: #07090f; --card-bg: rgba(20, 25, 40, 0.6); --card-border: rgba(255, 255, 255, 0.05); --text-main: #ffffff; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: radial-gradient(circle at top right, #131b2f, #07090f 100%); color: var(--text-main); min-height: 100vh; padding: 20px 15px; user-select: none; }
-        header { text-align: center; margin-bottom: 25px; padding: 20px 0; background: rgba(79, 172, 254, 0.1); border-radius: 24px; border: 1px solid var(--card-border); position: relative; }
-        header h1 { color: var(--primary); font-size: 24px; font-weight: 900; }
-        .about-btn { position: absolute; top: 15px; right: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; padding: 8px 15px; border-radius: 20px; cursor: pointer; }
-        .grid-channels { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px; }
-        .channel-item { background: var(--card-bg); border-radius: 18px; padding: 15px 10px; text-align: center; cursor: pointer; border: 1px solid var(--card-border); transition: 0.3s; display: flex; flex-direction: column; align-items: center; gap: 10px; backdrop-filter: blur(10px); }
-        .channel-item:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .channel-img { width: 55px; height: 55px; object-fit: cover; border-radius: 12px; background: #fff; }
-        .channel-title { font-weight: 700; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
-        #toast { visibility: hidden; background: var(--primary); color: #000; padding: 12px 20px; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); border-radius: 30px; z-index: 999999; font-weight: bold; transition: 0.5s; }
-        #toast.show { visibility: visible; }
-        #player-container { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 99999; }
-        .player-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; background: #000; }
-        video { width: 100%; height: 80vh; }
-        #about-modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 100000; justify-content: center; align-items: center; }
-        .modal-content { background: #131b2f; padding: 30px; border-radius: 20px; text-align: center; border: 1px solid var(--primary); }
+        /* ستایلی گشتی و باکگراوندێکی جادوویی */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c1b, #201a30, #2c1654);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* دروستکردنی ئەستێرە و دڵ لە باکگراونددا */
+        .background-decor {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* کارتە سەرەکییەکە */
+        .card-container {
+            position: relative;
+            width: 350px;
+            height: 450px;
+            z-index: 10;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* شاشەی یەکەم: نامە داخراوەکە */
+        .envelope-view {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,105,180,0.2);
+            transition: all 0.6s ease;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .envelope-icon {
+            font-size: 70px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px #ff69b4);
+        }
+
+        .envelope-view h2 {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .envelope-view p {
+            color: #e0d5f5;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* دوگمەی کردنەوەی نامەکە */
+        .open-btn {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 65, 108, 0.4);
+            transition: 0.3s;
+        }
+
+        .open-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 65, 108, 0.6), 0 0 15px #ff416c;
+        }
+
+        /* شاشەی دووەم: نامە کراوە و تایبەتەکە (سەرەتا شاردراوەیە) */
+        .letter-view {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffffff, #fff0f5);
+            border-radius: 20px;
+            padding: 30px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            transform: scale(0.8) rotateY(180deg);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+
+        /* دیزاینی ناوەوەی نامە کراوەکە */
+        .letter-view h1 {
+            color: #d11a5b;
+            font-size: 26px;
+            margin-top: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .message-box {
+            color: #4a3b52;
+            font-size: 16px;
+            line-height: 1.8;
+            font-weight: 500;
+            margin: 15px 0;
+        }
+
+        .cake-icon {
+            font-size: 55px;
+            animation: bounce 2s infinite;
+        }
+
+        .wishes {
+            font-style: italic;
+            color: #ff416c;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* کاتێک نامەکە دەکرێتەوە ئەم کلاسە چالاک دەبێت */
+        .card-container.is-open .envelope-view {
+            transform: scale(0.8) rotateY(-180deg);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .card-container.is-open .letter-view {
+            transform: scale(1) rotateY(0deg);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* ئەنیمەیشنەکان */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); text-shadow: 0 0 5px rgba(209,26,91,0.2); }
+            50% { transform: scale(1.03); text-shadow: 0 0 15px rgba(209,26,91,0.6); }
+        }
+
+        /* ئەنیمەیشنی دڵە بارینەکان */
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.6);
+            font-size: 20px;
+            animation: fall linear infinite;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="toast">پڕۆسەکە جێبەجێ دەبیت...</div>
+    <div class="background-decor" id="bgDecor"></div>
 
-    <div id="about-modal">
-        <div class="modal-content">
-            <h2>دەربارە</h2>
-            <p>دروستکراوە لە لایەن <strong>ئاکار دیاری</strong></p>
-            <button onclick="document.getElementById('about-modal').style.display='none'" style="margin-top:20px; padding:10px 20px; cursor:pointer;">داخستن</button>
+    <div class="card-container" id="card">
+        
+        <div class="envelope-view">
+            <div class="envelope-icon">✉️</div>
+            <h2>نامەیەکی تایبەت بۆ تۆ! ✨</h2>
+            <p>تکایە دڵنیابەرەوە کە کەس لە دەوربەرت نییە، پاشان نامەکە بکەوە...</p>
+            <button class="open-btn" onclick="openLetter()">نامەکە بکەوە 💖</button>
         </div>
-    </div>
 
-    <div id="player-container">
-        <div class="player-header">
-            <h3 style="color:var(--primary)">پەخشی ڕاستەوخۆ</h3>
-            <button onclick="closePlayer()" style="background:red; color:white; border:none; padding:8px 15px; border-radius:10px;">داخستن ✖</button>
+        <div class="letter-view">
+            <h1>ڕۆژی لەدایکبوونت پیرۆز بێت! 🎉🎈</h1>
+            
+            <div class="cake-icon">🎂</div>
+            
+            <div class="message-box">
+                لە نێوان هەموو ڕۆژەکانی ساڵدا، ئەمڕۆ گەشاوەترین و جوانترین ڕۆژە. هاتنی تۆ بۆ ئەم دنیا بەخشینی جوانییەکی نوێ بوو بە ژیان. هیوادارم تەمەنت پڕ بێت لە سەرکەوتن، دڵت هەمیشە ئارام بێت و بەو خەونانە بگەیت کە شایستەی پاکی دڵتن. ✨
+            </div>
+            
+            <div class="wishes">
+                هەمیشە بدرەوشێوەوە و هەروا بە جوانی بمێنەوە 🌸✨
+            </div>
         </div>
-        <video id="video-element" controls autoplay playsinline></video>
+
     </div>
 
-    <header>
-        <button class="about-btn" onclick="document.getElementById('about-modal').style.display='flex'">ℹ️</button>
-        <h1>Made By Akar</h1>
-    </header>
-
-    <div class="grid-channels" id="channels-list">
-        <script>
-            const channels = [
-                {name: "NRT HD", url: "https://hlspackager.akamaized.net/live/DB/NRT_HD/HLS/NRT_HD-avc1_2500000=10002,mp4a_128000=20000.m3u8"},
-                {name: "Rudaw", url: "https://live.rudaw.net/hls/rudaw-tv/master.m3u8"},
-                {name: "AVA", url: "https://ava2.store/upload/ava.m3u8"},
-                {name: "Channel 8", url: "https://live.channel8.com/Channel8-Kurdish/tracks-v4a1/mono.m3u8"},
-                {name: "Hormzyar HD", url: "http://avrstream.com:1935/live/HormzyarHD/playlist.m3u8"},
-                {name: "War", url: "https://live.kwikmotion.com/waarmedialive/waarmedia.smil/waarmediapublish/waarmedia_source/chunks.m3u8"},
-                {name: "Avar", url: "https://avr.host247.net/live/AvarTv/playlist.m3u8"},
-                {name: "Kurdsat News", url: "https://hlspackager.akamaized.net/live/DB/KURDSAT_NEWS/HLS/KURDSAT_NEWS.m3u8"},
-                {name: "Kurdsat", url: "https://hlspackager.akamaized.net/live/DB/KURDSAT_HD/HLS/KURDSAT_HD-avc1_2500000=10002,mp4a_128000=20000.m3u8"},
-                {name: "K24", url: "https://d1x82nydcxndze.cloudfront.net/live/index.m3u8"},
-                {name: "Gali KRD", url: "https://live.host247.net/gk/gksat/chunklist_w950982176.m3u8"},
-                {name: "Kurdistan TV", url: "https://5a3ed7a72ed4b.streamlock.net/live/SMIL:myStream.smil/chunklist_w735693271_b1700000_sleng_t64MTA4MHA=.m3u8"},
-                {name: "NRT 2", url: "https://ca-rt.onetv.app/NRT2/index-0.m3u8?token=onetv202"},
-                {name: "NRT 4", url: "https://live20.bozztv.com/giatv/giatv-nrt4stream/nrt4stream/chunks.m3u8"},
-                {name: "4 Kurd", url: "http://4kuhls.persiana.live/hls/stream.m3u8"},
-                {name: "Ala TV", url: "http://avrstream.com:1935/live/ala-hd/playlist.m3u8"},
-                {name: "Bnar Action", url: "http://krdtvappfree.ddns.net/bnarmoviesKRDTV/index.m3u8"},
-                {name: "Bnar Quran", url: "http://baskhd.ddns.net:40/live/QURANHDTV/mono.m3u8"},
-                {name: "Bnar Movies", url: "http://krdtvappfree.ddns.net/servertvnnew2025KRDTV/index.m3u8"},
-                {name: "Bnar Family", url: "http://krdtvappfree.ddns.net/bnar4kKRDTV/index.m3u8"},
-                {name: "Mix Kurdish", url: "http://avrstream.com:1935/live/Mix-kurdy/playlist.m3u8"},
-                {name: "UFC", url: "https://linear-893.frequency.stream/dist/xumo/893/hls/master/playlist.m3u8"},
-                {name: "Barca", url: "https://amg17560-fcb-amg17560c1-rakuten-uk-4891.playouts.now.amagi.tv/playlist/amg17560-fcbarcelona-topbarcaenglish-rakutenuk/playlist.m3u8"},
-                {name: "Real Madrid", url: "https://rmtv.akamaized.net/hls/live/2043153/rmtv-es-web/master.m3u8"},
-                {name: "Bensport 1", url: "https://stream.supertv.gg:3001/supertv/sport/stv1/ch1/adaptive.m3u8"},
-                {name: "Bensport 2", url: "http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/PQRQCB2NKUWPMCFCEQXDT4Z3/6123/index.m3u8"},
-                {name: "Bensport", url: "https://stream.supertv.gg:3001/supertv/sport/stv1/ch1/ch1_720.m3u8"},
-                {name: "Parwarda H", url: "https://parwarda.unitedmixmedia.tv/Parwardayi_Hawler/tracks-v2a1/mono.m3u8"},
-                {name: "Parwarda S", url: "https://parwarda.unitedmixmedia.tv/Parwarda/tracks-v2a1/mono.m3u8"},
-                {name: "Perwarda D", url: "https://parwarda.unitedmixmedia.tv/Parwardayi_Duhok/tracks-v2a1/mono.m3u8"}
-            ];
-
-            channels.forEach(ch => {
-                document.write(`
-                    <div class="channel-item" onclick="playChannel('${ch.url}')">
-                        <img src="https://ui-avatars.com/api/?name=${ch.name}&background=random" class="channel-img">
-                        <span class="channel-title">${ch.name}</span>
-                    </div>
-                `);
-            });
-
-            function playChannel(url) {
-                const toast = document.getElementById("toast");
-                toast.classList.add("show");
-                setTimeout(() => toast.classList.remove("show"), 5000);
-
-                const video = document.getElementById('video-element');
-                document.getElementById('player-container').style.display = 'block';
-
-                if (Hls.isSupported()) {
-                    const hls = new Hls();
-                    hls.loadSource(url);
-                    hls.attachMedia(video);
-                    video.play();
-                } else { video.src = url; video.play(); }
+    <script>
+        // فرمانی کردنەوەی نامەکە و دەستپێکردنی ئەفێکتی دڵەکان
+        function openLetter() {
+            const card = document.getElementById('card');
+            card.classList.add('is-open');
+            
+            // دروستکردنی بارانی دڵ بە شێوازی چڕ کاتێک نامەکە دەکرێتەوە
+            for(let i = 0; i < 50; i++) {
+                setTimeout(createHeart, i * 100);
             }
+        }
 
-            function closePlayer() {
-                document.getElementById('player-container').style.display = 'none';
-                document.getElementById('video-element').pause();
-            }
-        </script>
-    </div>
+        // فەنکشن بۆ دروستکردنی دڵی هەڕەمەکی لە باکگراونددا
+        function createHeart() {
+            const decor = document.getElementById('bgDecor');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            // دیاریکردنی شێوازی دڵ یان ئەستێرە بە هەڕەمەکی
+            const icons = ['❤️', '💖', '✨', '🌸', '💕'];
+            heart.innerText = icons[Math.floor(Math.random() * icons.length)];
+            
+            // شوێن و کاتی هەڕەمەکی
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's'; 
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            
+            decor.appendChild(heart);
+            
+            // سڕینەوەی دڵەکە دوای تەواوبوونی ئەنیمەیشنەکە بۆ ئەوەی کۆدەکە قورس نەبێت
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // دروستکردنی چەند دڵێکی کەم لە سەرەتادا لە باکگراوند
+        setInterval(createHeart, 600);
+    </script>
 </body>
 </html>
